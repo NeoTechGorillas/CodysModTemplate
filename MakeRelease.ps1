@@ -1,9 +1,29 @@
-# Needs to be at least that version, or mmm can't read the archive
-#Requires -Modules @{ ModuleName="Microsoft.PowerShell.Archive"; ModuleVersion="1.2.3" }
-$MyInvocation.MyCommand.Path | Split-Path | Push-Location # Run from this script's directory
-$Name = (ls *.csproj).BaseName
+$MyInvocation.MyCommand.Path | Split-Path | Push-Location
+
+$Name = (Get-ChildItem -Filter *.csproj).BaseName
+
 dotnet build -c Release
-mkdir BepInEx\plugins\$Name
-cp bin\Release\netstandard2.0\$Name.dll BepInEx\plugins\$Name\
-Compress-Archive .\BepInEx\ $Name-v
-rmdir .\BepInEx\ -Recurse
+
+$PluginDirectory = "BepInEx\plugins\$Name"
+if (-not (Test-Path -Path $PluginDirectory)) {
+    New-Item -Path $PluginDirectory -ItemType Directory
+}
+
+$SourceDll = "bin\Release\netstandard2.0\$Name.dll"
+$DestinationDll = "$PluginDirectory\$Name.dll"
+if (Test-Path $SourceDll) {
+    Copy-Item -Path $SourceDll -Destination $DestinationDll
+    Write-Host "Copied $SourceDll to $DestinationDll"
+} else {
+    Write-Error "Source DLL does not exist: $SourceDll"
+    Exit 1
+}
+
+$ArchiveName = "$Name-v$(Get-Date -Format 'yyyyMMdd-HHmmss').zip"
+Compress-Archive -Path .\BepInEx\ -DestinationPath $ArchiveName
+Write-Host "Created archive: $ArchiveName"
+
+Remove-Item -Path .\BepInEx\ -Recurse -Force
+Write-Host "Cleaned up BepInEx directory."
+
+Pop-Location

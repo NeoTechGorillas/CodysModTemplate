@@ -18,7 +18,7 @@
       <HintPath>$(GameAssemblyPath)\BakeryRuntimeAssembly.dll</HintPath>
     </Reference>
     <Reference Include="BananaOS">
-      <HintPath>..\..\..\..\..\..\Program Files\Oculus\Software\Software\another-axiom-gorilla-tag\BepInEx\plugins\BananaOS.dll</HintPath>
+      <HintPath>C:\Program Files\Oculus\Software\Software\another-axiom-gorilla-tag\BepInEx\plugins\BananaOS.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>$(BepInExAssemblyPath)\BepInEx.dll</HintPath>

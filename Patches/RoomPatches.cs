@@ -18,7 +18,7 @@ namespace CodysModTemplate.Patches
                 if (PhotonNetwork.InRoom && PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("gameMode"))
                 {
                     var gameMode = PhotonNetwork.CurrentRoom.CustomProperties["gameMode"].ToString();
-                    return gameMode.Contains("MODDED", StringComparison.OrdinalIgnoreCase); // Using case-insensitive check
+                    return gameMode.Contains("MODDED", StringComparison.OrdinalIgnoreCase); 
                 }
             }
             catch (Exception ex)

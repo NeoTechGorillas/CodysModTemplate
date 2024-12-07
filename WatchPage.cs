@@ -9,10 +9,6 @@ namespace CodysModTemplate
     {
         // Constants to avoid magic strings and to make the code more maintainable
         private const string PageTitle = "Example";
-        private const string ButtonLabel1 = "Test Button";
-        private const string ButtonLabel2 = "Test Button 2";
-        private const string NotificationMessage = "<align=center><size=5>Notification</size></align>";
-        private const int NotificationDuration = 1;
 
         // Default colors for the notification
         private readonly Color notificationColor = Color.blue;
@@ -36,12 +32,12 @@ namespace CodysModTemplate
         {
             var stringBuilder = new StringBuilder();
 
-            // Adding colorized page title
+            // This here add the page title
             stringBuilder.AppendLine($"<color=yellow>==</color> {PageTitle} <color=yellow>==</color>");
 
             // Adding button options with selection indicators
-            stringBuilder.AppendLine(selectionHandler.GetOriginalBananaOSSelectionText(0, ButtonLabel1));
-            stringBuilder.AppendLine(selectionHandler.GetOriginalBananaOSSelectionText(1, ButtonLabel2));
+            stringBuilder.AppendLine(selectionHandler.GetOriginalBananaOSSelectionText(0, "ButtonLabel1"));
+            stringBuilder.AppendLine(selectionHandler.GetOriginalBananaOSSelectionText(1, "ButtonLabel2"));
 
             return stringBuilder.ToString();
         }
@@ -94,14 +90,14 @@ namespace CodysModTemplate
         private void HandleTestButtonAction()
         {
             // This can trigger a notification or some logic
-            BananaNotifications.DisplayNotification($"{NotificationMessage} Button 1 clicked!", notificationColor, textColor, NotificationDuration);
+            BananaNotifications.DisplayNotification($"<align=center><size=5>  NOTI MESSAGE HERE", notificationColor, textColor, .8f);
         }
 
         // Example action for Test Button 2
         private void HandleTestButton2Action()
         {
             // This can trigger a different notification or logic
-            BananaNotifications.DisplayNotification($"{NotificationMessage} Button 2 clicked!", notificationColor, textColor, NotificationDuration);
+            BananaNotifications.DisplayNotification($"<align=center><size=5>  NOTI MESSAGE HERE", notificationColor, textColor, .8f);
         }
     }
 }

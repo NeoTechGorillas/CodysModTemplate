@@ -2,13 +2,13 @@
 using System.Reflection;
 using HarmonyLib;
 using BepInEx.Logging;
+using UnityEngine;
 
 namespace CodysModTemplate.Patches
 {
     public class HarmonyPatches
     {
         private static readonly Harmony instance = new Harmony(ModInfo.GUID);
-        private static readonly ManualLogSource logger = new ManualLogSource("HarmonyPatches");
 
         public static bool IsPatched { get; private set; }
 
@@ -19,14 +19,14 @@ namespace CodysModTemplate.Patches
 
             try
             {
-                logger.LogInfo("Applying Harmony patches...");
+                Debug.Log($"{ModInfo.Name} is Applying Harmony patches...");
                 instance.PatchAll(Assembly.GetExecutingAssembly());
                 IsPatched = true;
-                logger.LogInfo("Harmony patches applied successfully.");
+                Debug.Log($"Harmony patches applied successfully, in {ModInfo.Name}.");
             }
             catch (Exception ex)
             {
-                logger.LogError($"Error applying Harmony patches: {ex.Message}");
+                Debug.LogError($"Error applying Harmony patches: {ex.Message}");
             }
         }
 
@@ -37,14 +37,14 @@ namespace CodysModTemplate.Patches
 
             try
             {
-                logger.LogInfo("Removing Harmony patches...");
+                Debug.Log("Removing Harmony patches...");
                 instance.UnpatchSelf();
                 IsPatched = false;
-                logger.LogInfo("Harmony patches removed successfully.");
+                Debug.Log("Harmony patches removed successfully.");
             }
             catch (Exception ex)
             {
-                logger.LogError($"Error removing Harmony patches: {ex.Message}");
+                Debug.LogError($"Error removing Harmony patches: {ex.Message}");
             }
         }
     }
